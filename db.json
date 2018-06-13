@@ -5,18 +5,6 @@
       "email": "wfm@mail.ru",
       "password": "12345678",
       "name": "Администратор"
-    },
-    {
-      "email": "wf22m@mail.ru",
-      "password": "123123123",
-      "name": "123123123",
-      "id": 2
-    },
-    {
-      "email": "rorshah.009@gmail.com",
-      "password": "12345678",
-      "name": "IamGroot",
-      "id": 3
     }
   ],
   "bill": {

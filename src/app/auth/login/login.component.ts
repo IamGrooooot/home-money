@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
 
     this.route.queryParams
       .subscribe((params: Params) => {
-        console.log(params);
         if (params['nowCanLogin']){
           this.showMessage({
             text: 'Теперь Вы можете зайти в систему',
