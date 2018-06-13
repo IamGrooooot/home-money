@@ -43,7 +43,7 @@
             *ngIf="form.get('password').invalid && form.get('password').touched"
         >
             <span *ngIf="form.get('password')['errors']['required']">Password не может быть пустым.</span>
-            <span *ngIf="form.get('password')['errors']['minlength']">
+            <span *ngIf="form.get('password')['errors']['minlength'] && form.get('password')['errors']['minlength']['requiredLength']">
                 Пароль должен быть больше
                 {{form.get('password')['errors']['minlength']['requiredLength']}}                
                 символов. Сейчас
