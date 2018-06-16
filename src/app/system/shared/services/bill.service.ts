@@ -16,11 +16,11 @@ export class BillService extends BaseApi{
         super(httpClient);
     }
 
-    getBill() : Observable<Bill[]>{
+    getBill() : Observable<Bill>{
         return this.get('bill');
     }
 
-    getCurrency(base: string = 'RUB') : Observable<any>{
+    getCurrency(base: string = 'RUB,USD') : Observable<any>{
         return this.httpClient.get<any>(this.UrlFixer + `&symbols=${base}`);
     }
 }

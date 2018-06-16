@@ -1,33 +1,26 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BillService } from '../../shared/services/bill.service';
-import { Observable, combineLatest, Subscription} from 'rxjs';
-
+import { Component, OnInit, Input } from '@angular/core';
 import { Bill } from '../../shared/models/bill.model';
+
 @Component({
   selector: 'wfm-bill-card',
   templateUrl: './bill-card.component.html',
   styleUrls: ['./bill-card.component.scss']
 })
-export class BillCardComponent implements OnInit, OnDestroy {
+export class BillCardComponent implements OnInit {
 
-  private subscription: Subscription;
+  @Input() bill: Bill;
+  @Input() currency: any;
 
-  constructor(
-    private billService: BillService
-  ) { }
+  private dollar: number;
+  private rub: number;
+
+  constructor() { }
 
   ngOnInit() {
-    this.subscription = Observable.call(
-      combineLatest(
-        this.billService.getBill(),
-        this.billService.getCurrency()
-      ).subscribe((data:[Bill[], any]) =>{
-        console.log(data);
-      })
-    );
-  }
+    const { rates } = this.currency;
+    this.dollar = rates['USD'] * this.bill.value;
+    this.rub = rates['RUB'] * this.bill.value;
 
-  ngOnDestroy(){
-    this.subscription.unsubscribe();
+    console.log(this.currency);
   }
 }
