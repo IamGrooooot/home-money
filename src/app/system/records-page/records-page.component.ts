@@ -10,15 +10,15 @@ import { CategoriesService } from '../shared/services/catigories.service';
 })
 export class RecordsPageComponent implements OnInit {
 
-  private categories: Category[] = [];
+  categories: Category[] = [];
   isLoaded: boolean = false;
 
   constructor(
-    private categoryService: CategoriesService
+    private categoriesService: CategoriesService
   ) { }
 
   ngOnInit() {
-    this.categoryService.getCatigories()
+    this.categoriesService.getCatigories()
       .subscribe((categories: Category[]) => {
         this.categories = categories;
         this.isLoaded = true;
