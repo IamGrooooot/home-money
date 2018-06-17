@@ -20,6 +20,10 @@ export class BillService extends BaseApi{
         return this.get('bill');
     }
 
+    updateBill(bill: Bill): Observable<Bill>{
+        return this.put('bill', bill);
+    }
+
     getCurrency(base: string = 'RUB,USD') : Observable<any>{
         return this.httpClient.get<any>(this.UrlFixer + `&symbols=${base}`);
     }
