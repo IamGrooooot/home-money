@@ -23,6 +23,8 @@ export class HistoryPageComponent implements OnInit, OnDestroy{
   categories: Category[] = [];
   events: WFMEvent[] = [];
   chartData = [];
+
+  isFilterVisible = false;
   
   ngOnInit() {
     this.sub1 = Observable.call(
@@ -52,6 +54,22 @@ export class HistoryPageComponent implements OnInit, OnDestroy{
         }, 0)
       })
     });
+  }
+
+  private toggleFilterVisibility(dir: boolean){
+    this.isFilterVisible = dir;
+  }
+
+  openFilter(){
+    this.toggleFilterVisibility(true);
+  }
+
+  onFilterApply(filterData){
+    console.log(filterData);
+  }
+
+  onFilterCancel(){
+    
   }
 
   ngOnDestroy(){
