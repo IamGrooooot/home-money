@@ -23,6 +23,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy{
   categories: Category[] = [];
   events: WFMEvent[] = [];
   chartData = [];
+  
   ngOnInit() {
     this.sub1 = Observable.call(
       combineLatest(
