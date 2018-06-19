@@ -8,7 +8,7 @@
     }
   ],
   "bill": {
-    "value": 98795,
+    "value": 598795,
     "currency": "RUB"
   },
   "categories": [
@@ -29,7 +29,7 @@
     },
     {
       "name": "IamGroot",
-      "capacity": 4,
+      "capacity": 50000,
       "id": 4
     }
   ],
@@ -105,6 +105,22 @@
       "date": "18.06.2018 21:21:28",
       "description": "Орехи",
       "id": 9
+    },
+    {
+      "type": "income",
+      "amount": 1000000,
+      "category": 4,
+      "date": "19.06.2018 22:33:54",
+      "description": "Удачный проект",
+      "id": 10
+    },
+    {
+      "type": "outcome",
+      "amount": 20000,
+      "category": 4,
+      "date": "19.06.2018 22:40:35",
+      "description": "Содержание",
+      "id": 11
     }
   ]
 }
