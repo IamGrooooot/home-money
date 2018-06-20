@@ -9,7 +9,7 @@ const routes: Routes = [
     },
     {
         path: 'system',
-        loadChildren: './system/system.module#SystemModyle'
+        loadChildren: './system/system.module#SystemModule'
     }
 ]
 
