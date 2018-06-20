@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CategoriesService } from '../shared/services/catigories.service';
-import { EventsService } from '../shared/services/events.service';
 import { Observable, combineLatest, Subscription } from 'rxjs';
-import { Category } from '../shared/models/category.model';
+import * as moment from 'moment';
+
 import { WFMEvent } from '../shared/models/event.model';
+import { EventsService } from '../shared/services/events.service';
+import { Category } from '../shared/models/category.model';
+import { CategoriesService } from '../shared/services/catigories.service';
 
 @Component({
   selector: 'wfm-history-page',
@@ -22,6 +24,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy{
   isLoaded = false;
   categories: Category[] = [];
   events: WFMEvent[] = [];
+  filteredEvents: WFMEvent[] = [];
   chartData = [];
 
   isFilterVisible = false;
@@ -36,16 +39,21 @@ export class HistoryPageComponent implements OnInit, OnDestroy{
         this.categories = data[0];
         this.events = data[1];
 
+        this.setOriginalEvents();
         this.calculateChartData();
         this.isLoaded = true;
       })
     );
   }
 
+  private setOriginalEvents(){
+    this.filteredEvents = this.events.slice();
+  }
+
   calculateChartData() : void{
     this.chartData = [];
     this.categories.forEach((cat) => {
-      const catEvents = this.events.filter((e) => e.category === cat.id && e.type === "outcome");
+      const catEvents = this.filteredEvents.filter((e) => e.category === cat.id && e.type === "outcome");
       this.chartData.push({
         name: cat.name,
         value: catEvents.reduce((total, e) => {
@@ -65,11 +73,30 @@ export class HistoryPageComponent implements OnInit, OnDestroy{
   }
 
   onFilterApply(filterData){
-    console.log(filterData);
+    this.toggleFilterVisibility(false);
+    this.setOriginalEvents();
+
+    const startPeriod = moment().startOf(filterData.period).startOf('d');
+    const endPeriod = moment().endOf(filterData.period).endOf('d');
+
+    this.filteredEvents = this.filteredEvents
+      .filter((e) => {
+        return filterData.types.indexOf(e.type) !== -1;
+      })
+      .filter((e) => {
+        return filterData.categories.indexOf(e.category.toString()) !== -1;
+      })
+      .filter((e) => {
+        const momentDate = moment(e.date, 'DD.MM.YYYY HH:mm:ss');
+        return momentDate.isBetween(startPeriod, endPeriod);
+      });
+    this.calculateChartData();
   }
 
   onFilterCancel(){
-    
+    this.toggleFilterVisibility(false);
+    this.setOriginalEvents();
+    this.calculateChartData();
   }
 
   ngOnDestroy(){
